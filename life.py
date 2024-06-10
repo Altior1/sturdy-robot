@@ -1,8 +1,14 @@
 import pyxel as px
+import random 
+
 WIDTH = 800
 HEIGHT = 800
-TAILLE_PIX = 5
-INITCEL= [(1,2),(5,3),(0,0),(20,20),(80,80),(80,81),(18,159)]
+TAILLE_PIX = 800
+INITCEL= []
+nb=random.randint(500,1000)
+for i in range(nb):
+    cell=(random.randint(0,HEIGHT//TAILLE_PIX),random.randint(0,WIDTH//TAILLE_PIX))
+    INITCEL.append(cell)
 class cellule:
     """ les cellules vont être la base du changement de comportement"""
     def __init__(self,x,y):
@@ -23,15 +29,18 @@ class cellule:
             self.etat=1
     def draw(self):
         if self.etat==1:
-            px.rect(self.x*5,self.y*5,5,5,5)
+            px.rect(self.x*(HEIGHT//TAILLE_PIX),self.y*(WIDTH//TAILLE_PIX),TAILLE_PIX,TAILLE_PIX,1)
         else:
-            px.rect(self.x*5,self.y*5,5,5,15)
+            px.rect(self.x*(HEIGHT//TAILLE_PIX),self.y*(HEIGHT//TAILLE_PIX),TAILLE_PIX,TAILLE_PIX,0)
 
 class App:
     """ La classe App contient les fonctions générales de l'application, qui vont appeler les 
     différentes classes"""
     def __init__(self):
-        px.init(WIDTH,HEIGHT,title="jeu de la vie",fps=5)
+        #on initialise au début 
+        px.init(WIDTH,HEIGHT,title="jeu de la vie",fps=1)
+        #on s'occupe des couleurs
+        px.colors.from_list([0x999900,0x000099])
         # self.list contient des listes de celulles correspondant aux différentes colonnes
         self.list=[]
         for i in range(160):
@@ -49,9 +58,9 @@ class App:
                     self.list[i][j].voisin.append(self.list[i-1][j])
                 if j!=0:
                     self.list[i][j].voisin.append(self.list[i][j-1])
-                if i!=159:
+                if i!=len(self.list)-1:
                     self.list[i][j].voisin.append(self.list[i+1][j])
-                if j!=159:
+                if j!=len(self.list[0])-1:
                     self.list[i][j].voisin.append(self.list[i][j+1])
         for each in INITCEL:
             self.list[each[0]][each[1]].etat=1
