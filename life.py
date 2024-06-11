@@ -3,12 +3,13 @@ import random
 
 WIDTH = 800
 HEIGHT = 800
-TAILLE_PIX = 800
+TAILLE_PIX = 25
 INITCEL= []
-nb=random.randint(500,1000)
-for i in range(nb):
-    cell=(random.randint(0,HEIGHT//TAILLE_PIX),random.randint(0,WIDTH//TAILLE_PIX))
-    INITCEL.append(cell)
+#nb=random.randint(500,1000)
+#for i in range(nb):
+#    cell=(random.randint(0,HEIGHT//TAILLE_PIX),random.randint(0,WIDTH//TAILLE_PIX))
+#    INITCEL.append(cell)
+INITCEL.extend([(i,50-i) for i in range(50)])
 class cellule:
     """ les cellules vont être la base du changement de comportement"""
     def __init__(self,x,y):
@@ -29,18 +30,18 @@ class cellule:
             self.etat=1
     def draw(self):
         if self.etat==1:
-            px.rect(self.x*(HEIGHT//TAILLE_PIX),self.y*(WIDTH//TAILLE_PIX),TAILLE_PIX,TAILLE_PIX,1)
+            px.rect(self.x*(HEIGHT/TAILLE_PIX),self.y*(WIDTH/TAILLE_PIX),TAILLE_PIX,TAILLE_PIX,1)
         else:
-            px.rect(self.x*(HEIGHT//TAILLE_PIX),self.y*(HEIGHT//TAILLE_PIX),TAILLE_PIX,TAILLE_PIX,0)
+            px.rect(self.x*(HEIGHT/TAILLE_PIX),self.y*(HEIGHT/TAILLE_PIX),TAILLE_PIX,TAILLE_PIX,3)
 
 class App:
     """ La classe App contient les fonctions générales de l'application, qui vont appeler les 
     différentes classes"""
     def __init__(self):
         #on initialise au début 
-        px.init(WIDTH,HEIGHT,title="jeu de la vie",fps=1)
+        px.init(WIDTH,HEIGHT,title="jeu de la vie",fps=5)
         #on s'occupe des couleurs
-        px.colors.from_list([0x999900,0x000099])
+        px.colors.from_list([0x000000,0x999999,0x000099,0x552266])
         # self.list contient des listes de celulles correspondant aux différentes colonnes
         self.list=[]
         for i in range(160):
