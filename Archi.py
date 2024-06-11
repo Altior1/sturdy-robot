@@ -53,6 +53,7 @@ class App():
         self.objects.append(player)
         self.objects.append(missile1)
         pyxel.init(WIDTH,HEIGHT,title="Le silence dans la prairie",fps=30)
+        pyxel.load("ressources/ressourceArchi.pyxres")
         pyxel.run(self.update,self.draw)
     def update(self):
         if pyxel.btnp(pyxel.KEY_ESCAPE):
