@@ -1,8 +1,8 @@
 import pyxel
 
 #les constantes
-HEIGHT=400
-WIDTH=400
+HEIGHT=600
+WIDTH=1200
 SAUT=20
 
 
@@ -26,7 +26,7 @@ class Player:
             self.posY+=self.vitesse
 
     def draw(self):
-        pyxel.rect(self.posX,self.posY,10,10,2)
+        pyxel.blt(self.posX,self.posY,0,16,8,72,112)
 
 #les ennemies
 class Missile:
@@ -40,7 +40,7 @@ class Missile:
         if self.posY>0:    
             self.posY-=self.vitesse
     def draw(self):
-        pyxel.rect(self.posX,self.posY,10,10,5)
+        pyxel.rect(self.posY,self.posX,10,10,5)
 
 class App():
     
