@@ -5,15 +5,15 @@ WIDTH = 800
 HEIGHT = 800
 TAILLE_PIX = 25
 INITCEL= []
-#nb=random.randint(500,1000)
-#for i in range(nb):
-#    cell=(random.randint(0,HEIGHT//TAILLE_PIX),random.randint(0,WIDTH//TAILLE_PIX))
-#    INITCEL.append(cell)
-INITCEL.extend([(i,50-i) for i in range(50)])
+nb=random.randint(0,2)
+for i in range(nb):
+    cell=(random.randint(0,HEIGHT//TAILLE_PIX),random.randint(0,WIDTH//TAILLE_PIX))
+    INITCEL.append(cell)
 class cellule:
     """ les cellules vont être la base du changement de comportement"""
     def __init__(self,x,y):
         self.etat=0
+        self.etatf=0
         self.x=x
         self.y=y
         self.voisin=[]
@@ -23,11 +23,13 @@ class cellule:
             if each.etat==1:
                 compt+=1
         if compt==0:
-            self.etat=0
+            self.etatf=0
         elif compt>2:
-            self.etat=0
+            self.etatf=0
         else:
-            self.etat=1
+            self.etatf=1
+    def glissement(self):
+        self.etat=self.etatf
     def draw(self):
         if self.etat==1:
             px.rect(self.x*(HEIGHT/TAILLE_PIX),self.y*(WIDTH/TAILLE_PIX),TAILLE_PIX,TAILLE_PIX,1)
@@ -72,6 +74,9 @@ class App:
         for each in self.list:
             for ea in each:
                 ea.update()
+        for each in self.list:
+            for ea in each:
+                ea.glissement()
         if px.btnp(px.KEY_Q):
             px.quit()
     def draw(self):
