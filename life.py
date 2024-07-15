@@ -5,7 +5,7 @@ WIDTH = 800
 HEIGHT = 800
 TAILLE_PIX = 25
 INITCEL= []
-nb=random.randint(0,2)
+nb=random.randint(0,1)
 for i in range(nb):
     cell=(random.randint(0,HEIGHT//TAILLE_PIX),random.randint(0,WIDTH//TAILLE_PIX))
     INITCEL.append(cell)
